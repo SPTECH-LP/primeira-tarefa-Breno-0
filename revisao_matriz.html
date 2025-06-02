@@ -7,8 +7,130 @@
     <title>Document</title>
 </head>
 
-<body>
+<style>
+.container{
+    background-color: blue;
+    text-align: center;
+    width: 300px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+}
 
-</body>
+.item{
+    background-color: red;
+    width: 50px;
+    margin: 10px;
+}
+</style>
+
+<body ><center>
+
+<div class="container" id="div_matriz">
+
+    
+</div>
+<br>
+<br>
+<button onclick="montarMatriz()">Montar Matriz</button>
+
+<br>
+<br>
+
+<input type="text" id="ipt_linha" placeholder="linha">
+<br>
+<br>
+<input type="text" id="ipt_coluna" placeholder="coluna">
+<br>
+<br>
+<button onclick="consultarMatriz()">consultar</button>
+<br>
+<br>
+<div id="div_resposta"></div>
+
+<br>
+<br>
+
+<button onclick="somarLinha()">somar linhas</button>
+<div id="div_somaLinha"></div>
+
+<br>
+
+<button onclick="somarColuna()">somar coluna</button>
+<div id="div_somaColuna"></div>
+
+</body></center>
+
+<script>
+
+    let minhaMatriz = [];
+    
+    function montarMatriz(){
+
+        let qtdLinhas = 3;
+        let qtdColunas = 3;
+
+        let valorInicial = 5;
+
+        let matriz = ""
+
+        for(let i = 0; i < qtdLinhas; i++){
+            minhaMatriz[i] = [];
+            for(let j = 0; j < qtdColunas; j++){
+                minhaMatriz[i][j] = valorInicial
+                valorInicial+=5;
+
+                //já preenchi, agora vou colocar no html
+
+                matriz += `<div class="item">${minhaMatriz[i][j]}</div>`
+            }
+        }
+
+        div_matriz.innerHTML = matriz
+
+        console.log(minhaMatriz)
+
+    }
+
+    function consultarMatriz(){
+
+        let linha = Number(ipt_linha.value);
+        let coluna = Number(ipt_coluna.value);
+
+        let valor = minhaMatriz[linha][coluna];
+
+        div_resposta.innerHTML = `O valor da linha ${linha} e coluna ${coluna} é : ${valor}`
+
+    }
+
+    function somarLinha(){
+        let linha = Number(ipt_linha.value)
+        let soma = 0;
+        let frase = "";
+
+        for(let i = 0; i < minhaMatriz[linha].length; i++){
+
+            soma+= Number(minhaMatriz[linha - 1][i])
+
+            frase = `A soma da liha ${linha} é: ${soma}`
+        }
+
+        div_somaLinha.innerHTML = frase
+    }
+
+    function somarColuna(){
+        let coluna = Number(ipt_coluna.value);
+        let soma = 0;
+        let frase = "";
+
+        for(let i = 0; i < minhaMatriz.length; i++){
+            soma += minhaMatriz[i][coluna - 1]
+            frase = `A soma da coluna ${coluna} é: ${soma}`
+        }
+
+        div_somaColuna.innerHTML = frase
+    }
+
+</script>
 
 </html>
